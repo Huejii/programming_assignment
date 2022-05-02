@@ -2,9 +2,14 @@
 ## < 학급 성적 계산 프로그램 >
 ###### - 경제학과 201821860 채희주
 ---
+
 알고리즘 정의
+---
 
 <img src="https://user-images.githubusercontent.com/94972402/166223016-ef15e372-4b97-4ad0-8d37-1856534e3be2.png" width="600">
+
+코드
+---
 
 ```c
 #include <stdio.h>
@@ -29,7 +34,7 @@ void print_total_avg(double* b, int a);                // 정의: 9. 전체 학�
 
 9. `print_total_avg` : 8번함수에서 반환된 배열 주소값을 토대로 전체 학급의 과목별 평균을 산출하고 출력한다.
 
----
+
 ```c
 /* main함수 시작 */
 int main(void)
@@ -59,7 +64,8 @@ int main(void)
 	double* totalScore = 0;
 ```
 성적 산출 및 출력함수에서 선언한 static한 1차원 배열값을 반환받을 포인터변수 `totalScore`를 선언하였다. 이는 <9. 전체 학급 과목별 평균 산출 및 출력 함수)의 parameter가 될것이다.
----
+
+
 ```c
 /******************* 성적 산출 *******************/
 
@@ -82,17 +88,25 @@ int main(void)
 		totalScore = print_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
 	}
 ```
-입력받은 학급 수인 `classes`에 따라 `switch`문의 `case`를 나누었다. 
+입력받은 학급 수인 `classes`에 따라 `switch`문의 case를 나누었다. `case n`은 'class(n-1)'의 성적 입력과 총점&평균 성적을 출력할 함수를 호출한다.
+
+`break`를 걸지 않음에 따라, `case 3`의 경우를 예로 들 때 `case 2` 실행된 이후 차례대로 `case 2`, `case 1`이 실행되는 식으로 진행된다. 이에 따라 뒷반의 case부터 실행된다.
+
+`case 1`에서는 최종적으로 누적된 <8. 학급별 총점&평균 성적 출력 함수>에서 선언한 과목별 총점 배열을 포인터변수 `totalScore`에 대입한다. 
+
 ```c
 	// 전체 학급의 과목별 평균 출력
-	print_total_avg(totalScore, classes);      // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
+	print_total_avg(totalScore, classes); // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
 
 	return 0;
 }
 /* main 함수 끝 */
 ```
 
+switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 호출하여 앞서 반환받은 `totalScore`와 학급수 `classes`를 parameter로 넣어 과목별 총평균을 출력한다. 
 
+코드 中 함수정의
+---
 
 ```c
 /******************* 함수 정의 *******************/
@@ -111,9 +125,9 @@ void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 	}
 }
 ```
-7. score_input: 학급별로 성적을 입력한다. 입력은 사용자의 키보드로 입력받는다. 이 때, parameter값은 학생과 과목간의 이차원 배열이다. 중접for문인데, 외부 For는 과목 수만큼, 내부For문은 학생 수만큼 돈다. 따라서 다음과 같은 순서대로 입력된다.
+7. score_input: 학급별로 성적을 입력한다. 입력은 사용자의 키보드로 입력받는다. 이 때, parameter값은 학생과 과목간의 이차원 배열이다. 배열값을 입력하기 위한 중접for문으로, 외부 For는 과목 수 `SUBJECTS`만큼, 내부For문은 학생 수 `STUDENTS`만큼 돈다. 따라서 다음과 같은 순서대로 입력된다.
 
-작은For \ 큰For|과목0|과목1|과목2|과목3
+내부For \ 외부For|과목0|과목1|과목2|과목3
 --|--|--|--|--
 학생0|①|④|⑦|⑩
 학생1|②|⑤|⑧|⑪
@@ -139,6 +153,8 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 	return cumSum;
 }
 ```
+
+
 ```c
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
 void print_total_avg(double* b, int a)               // 과목별 전체학급 성적 배열, 학급수
