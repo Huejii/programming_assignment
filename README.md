@@ -3,12 +3,12 @@
 ###### - 경제학과 201821860 채희주
 ---
 
-알고리즘 정의
+① 알고리즘 정의
 ---
 
 <img src="https://user-images.githubusercontent.com/94972402/166223016-ef15e372-4b97-4ad0-8d37-1856534e3be2.png" width="600">
 
-코드
+② 코드
 ---
 
 ```c
@@ -105,7 +105,7 @@ int main(void)
 
 switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 호출하여 앞서 반환받은 `totalScore`와 학급수 `classes`를 parameter로 넣어 과목별 총평균을 출력한다. 
 
-코드 中 함수정의
+③ 코드 中 함수정의
 ---
 
 ```c
