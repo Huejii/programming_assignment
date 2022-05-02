@@ -4,6 +4,7 @@
 ---
 알고리즘 정의
 
+<img src="https://user-images.githubusercontent.com/94972402/166217452-5ddc010a-f92a-4503-a996-ea207db9ac61.png" width="600">
 ```c
 #include <stdio.h>
 
@@ -14,8 +15,8 @@
 ```c
 /******************* 함수 원형 *******************/
 void score_input(double a[STUDENTS][SUBJECTS]);        // 정의: 7. 성적 입력 함수
-double* score_sum_avg(double a[STUDENTS][SUBJECTS]);   // 정의: 8. 성적 산출 및 출력 함수
-void total_subject_avg(double* b, int a);              // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
+double* print_sum_avg(double a[STUDENTS][SUBJECTS]);   // 정의: 8. 성적 산출 및 출력 함수
+void print_total_avg(double* b, int a);              // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
 ```
 	/******************* 학급 SETUP *******************/
 ```c
@@ -53,22 +54,22 @@ int main(void)
 	case 3: //2반
 		printf("\n\n----< 2반 성적 입력 > ----\n\n");
 		score_input(class2);      // < 7. 성적 입력(키보드) 함수 > 호출 : 학급별 성적 입력
-		score_sum_avg(class2);    // < 8. 학급별 총점&평균 성적 출력 함수 > 호출 / 리턴값: 과목별 총점 누적 배열(주소)
+		print_sum_avg(class2);    // < 8. 학급별 총점&평균 성적 출력 함수 > 호출 / 리턴값: 과목별 총점 누적 배열(주소)
 
 	case 2: //1반
 		printf("\n\n----< 1반 성적 입력 >---- \n\n");
 		score_input(class1);
-		score_sum_avg(class1);
+		print_sum_avg(class1);
 
 	case 1: //0반
 		printf("\n\n----< 0반 성적 입력 >---- \n\n");
 		score_input(class0);
-		p = score_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
+		p = print_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
 	}
 ```
 ```c
 	// 전체 학급의 과목별 평균 출력
-	total_subject_avg(p, classes);      // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
+	print_total_avg(p, classes);      // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
 
 	return 0;
 }
@@ -99,7 +100,7 @@ void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 
 ```c
 // 8. 성적 산출 함수 정의: 학급별 총점 & 평균 출력
-double *score_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 과목별 전체학급 성적 배열
+double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 과목별 전체학급 성적 배열
 {
 	static double b[SUBJECTS] = { 0.0 }; // 저장 유형 지정자 static > 전체 학급의 과목별 성적 누적
 	double total = 0;                    // 학급별 총점 변수
@@ -119,7 +120,7 @@ double *score_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 ```
 ```c
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
-void total_subject_avg(double* b, int a)             // 과목별 전체학급 성적 배열, 학급수
+void print_total_avg(double* b, int a)             // 과목별 전체학급 성적 배열, 학급수
 {
 	double avg;                                  // 과목별 총점으로 평균을 계산하여 넣을 <과목별 전체 평균 변수> 선언
 	printf("\n\n===== << 전체 학급의 과목별 평균 >> =====\n\n");
