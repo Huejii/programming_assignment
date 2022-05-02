@@ -1,4 +1,4 @@
-# Programming_assignment1
+# Programming_1
 ## < 학급 성적 계산 프로그램 >
 ###### - 경제학과 201821860 채희주
 ---
@@ -49,19 +49,19 @@ int main(void)
 학급 수를 사용자에게 입력받는다. 입력받은 int형 변수 `classes`가 1~3가 아닐 시, 오류 메세지를 출력하고 `goto`함수를 통해 다시 학급 수를 입력하는 함수로 되돌아간다.
 
 ```c
-	double class0[STUDENTS][SUBJECTS];                // 4. 학급별 2차원 배열(학생수X과목수) 생성
-	double class1[STUDENTS][SUBJECTS];
-	double class2[STUDENTS][SUBJECTS];
+	double class0[STUDENTS][SUBJECTS] = {0.0};;                // 4. 학급별 2차원 배열(학생수X과목수) 생성
+	double class1[STUDENTS][SUBJECTS] = {0.0};;
+	double class2[STUDENTS][SUBJECTS] = {0.0};;
 ```
-학급이 최대 3개까지  위와 같이 
-
+학급이 최대 3개까지 있을 수 있으므로, 3개의 2차원 배열 변수를 선언하고 초기화하였다.
 ```c
-	// 5. 성적 입력 함수에서 선언한 < 전체학급의 과목별 총점 배열 > 반환값을 대입할 포인터 변수
+	// 5. <8. 성적 산출 및 출력 함수>에서 선언한 < 전체학급의 과목별 총점 배열 > 반환값을 대입할 포인터 변수
 	double* totalScore = 0;
 ```
-	/******************* 성적 산출 *******************/
+성적 산출 및 출력함수에서 선언한 static한 1차원 배열값을 반환받을 포인터변수 `totalScore`를 선언하였다. 이는 <9. 전체 학급 과목별 평균 산출 및 출력 함수)의 parameter가 될것이다.
+---
 ```c
-
+/******************* 성적 산출 *******************/
 
 	// 6. 입력받은 학급수에 따른 switch문: 성적입력, 총점&평균 출력
 	switch (classes)
@@ -82,6 +82,7 @@ int main(void)
 		totalScore = print_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
 	}
 ```
+입력받은 학급 수인 `classes`에 따라 `switch`문의 `case`를 나누었다. 
 ```c
 	// 전체 학급의 과목별 평균 출력
 	print_total_avg(totalScore, classes);      // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
@@ -93,9 +94,8 @@ int main(void)
 
 
 
-/******************* 함수 정의 *******************/
 ```c
-
+/******************* 함수 정의 *******************/
 // 7. 성적 입력 함수 정의 : 학생X과목별 키보드 입력 
 void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 {
