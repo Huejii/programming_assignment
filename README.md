@@ -125,7 +125,7 @@ void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 	}
 }
 ```
-###score_input: 
+`score_input`:
 
 학급별로 성적을 입력한다. 입력은 사용자의 키보드로 입력받는다. 이 때, parameter값은 학생과 과목간의 이차원 배열이다. 배열값을 입력하기 위한 중접 for문으로, 외부 For는 과목 수 `STUDENTS`만큼, 내부For문은 학생 수 `SUBJECTS`만큼 돌며 다음과 같은 순서대로 입력된다.
 
@@ -155,7 +155,7 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 	return cumSum;
 }
 ```
-###score_input
+`print_sum_avg`:
 
 7번 함수에서 입력받은 학급별 성적배열을 input하여 각 학급별 총점과 평균을 계산하여 출력한다. 먼저 전체학급의 과목별 성적을 누적하는 배열은 case내에서 이 함수를 끝내더라도 다른 학급의 성적을 계산할 때에도 값이 유지 및 누적되어야 하기 때문에 static으로 선언하여 준다. 그 다음 학급별 총점을 누적 대입받기 위해 `total` 변수를 `for`문 밖에 선언과 동시에 0으로 초기화하였다. 
 
@@ -188,7 +188,7 @@ void print_total_avg(double* b, int a)               // 과목별 전체학급 �
 }
 ```
 
-###print_total_avg
+`print_total_avg`:
 
 앞서 반환하여 포인터 변수에 대입한 배열을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
 
