@@ -24,13 +24,13 @@ double* print_sum_avg(double a[STUDENTS][SUBJECTS]);   // 정의: 8. 성적 산�
 void print_total_avg(double* b, int a);                // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
 ```
 
-기호상수와 함수는 위와 같이 선언하였다. 기호상수는 `SUTDENTS`는 학급별로 학생 수가 3, `SUBJECTS`는 과목 수가 4인 것을 의미한다. 
+기호상수와 함수는 위와 같이 선언하였다. 기호상수 `SUTDENTS`는 학급별로 학생 수가 3, `SUBJECTS`는 과목 수가 4인 것을 의미한다. 
 
-함수는 정의부에서 코드와 함께 자세하게 설명할 예정으로, 간단히 설명하면
+함수는 정의부에서 코드와 함께 자세히 설명할 예정으로, 간단히 설명하면
 
 7. `score_input` : 학급별로 성적을 입력한다.
 
-8. `print_sum_avg` : 7번 함수에서 입력받은 성적 배열을 토대로 학급의 총점과 평균을 계산하여 출력한다. 함수 내 전체 학급의 과목별 성적을 합산하는 **static** 유형의 1차원 배열인 `cumSum`을 선언하여 누적하고, 이 배열의 주소를 반환값으로 한다. 
+8. `print_sum_avg` : 7번 함수에서 입력받은 성적 배열을 토대로 학급의 총점과 평균을 계산하여 출력한다. 함수 내에 전체 학급의 과목별 성적을 합산하는 **static** 유형의 1차원 배열인 `cumSum`을 선언하여 누적하고, 이 배열의 주소를 반환값으로 한다. 
 
 9. `print_total_avg` : 8번함수에서 반환된 배열 주소값을 토대로 전체 학급의 과목별 평균을 산출하고 출력한다.
 
@@ -40,21 +40,21 @@ void print_total_avg(double* b, int a);                // 정의: 9. 전체 학�
 int main(void)
 {
 /******************* 학급 SETUP *******************/
-	int classes;                                                 // 1. 학급 수 입력받을 변수 선언
+	int classes;                       // 1. 학급 수 입력받을 변수 선언
 
 	class_input: printf("1. 학급의 개수를 입력해주세요(1~3): ");  // 2. 학급 수 키보드 입력
 	scanf_s("%d", &classes);
 
-	if (classes < 1 || classes > 3)                              // 3. 학급 수가 1 ~ 3개 아니면 오류
+	if (classes < 1 || classes > 3)    // 3. 학급 수가 1 ~ 3개 아니면 오류
 	{
 		printf("\n※ 학급은 1~3개까지 입력 가능합니다. 다시 입력해 주세요.\n\n");  // 오류 메세지
-		goto class_input;                                    // < 2. 학급 수 키보드 입력 >으로 다시 이동
+		goto class_input;          // < 2. 학급 수 키보드 입력 >으로 다시 이동
 	}
 ```
 학급 수를 사용자에게 입력받는다. 입력받은 int형 변수 `classes`가 1~3가 아닐 시, 오류 메세지를 출력하고 `goto`함수를 통해 다시 학급 수를 입력하는 함수로 되돌아간다.
 
 ```c
-	double class0[STUDENTS][SUBJECTS] = {0.0};;                // 4. 학급별 2차원 배열(학생수X과목수) 생성
+	double class0[STUDENTS][SUBJECTS] = {0.0};;   // 4. 학급별 2차원 배열(학생수X과목수) 생성
 	double class1[STUDENTS][SUBJECTS] = {0.0};;
 	double class2[STUDENTS][SUBJECTS] = {0.0};;
 ```
@@ -88,11 +88,11 @@ int main(void)
 		totalScore = print_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
 	}
 ```
-입력받은 학급 수인 `classes`에 따라 `switch`문의 case를 나누었다. case n은 'class(n-1)'의 성적 입력과 총점&평균 성적을 출력할 함수를 호출한다.
+입력받은 학급 수인 `classes`에 따라 `switch`문의 case를 나누었다. `case n`은 'class(n-1)'의 성적 입력과 총점&평균 성적을 출력할 함수를 호출한다.
 
-break를 걸지 않음에 따라, `case 3`의 경우를 예로 들 때 `case 3`이 실행된 이후 차례대로 `case 2`, `case 1`이 실행되는 식으로 진행된다. 이에 따라 마지막 class부터 실행된다.
+break를 걸지 않음에 따라, `case 3`의 경우를 예로 들 때 `case 3`이 실행된 이후 차례대로 `case 2`, `case 1`이 실행되는 식으로 진행된다. 이에 따라 뒷 학급부터 실행된다.
 
-`case 1`에서는 최종적으로 누적된 <8. 학급별 총점&평균 성적 출력 함수>에서 선언한 과목별 총점 배열을 포인터변수 `totalScore`에 대입한다. 
+`case 1`에서는 최종적으로 누적된 <8. 학급별 총점&평균 성적 출력 함수>에서 선언한 과목별 총점 배열을 반환하여 포인터변수 `totalScore`에 대입한다. 
 
 ```c
 	// 전체 학급의 과목별 평균 출력
@@ -103,7 +103,7 @@ break를 걸지 않음에 따라, `case 3`의 경우를 예로 들 때 `case 3`�
 /* main 함수 끝 */
 ```
 
-switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 호출하여 앞서 반환받은 `totalScore`와 학급수 `classes`를 parameter로 넣어 과목별 총평균을 출력한다. 
+switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 호출하여 앞선 함수에서 반환값을 대입한 포인터 변수 `totalScore`와 학급수 `classes`를 parameter로 넣어 과목별 총평균을 출력한다. 
 
 ③ 코드 中 함수정의
 ---
@@ -125,9 +125,9 @@ void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 	}
 }
 ```
-7. score_input: 
+###score_input: 
 
-8학급별로 성적을 입력한다. 입력은 사용자의 키보드로 입력받는다. 이 때, parameter값은 학생과 과목간의 이차원 배열이다. 배열값을 입력하기 위한 중접 for문으로, 외부 For는 과목 수 `STUDENTS`만큼, 내부For문은 학생 수 `SUBJECTS`만큼 돌며 다음과 같은 순서대로 입력된다.
+학급별로 성적을 입력한다. 입력은 사용자의 키보드로 입력받는다. 이 때, parameter값은 학생과 과목간의 이차원 배열이다. 배열값을 입력하기 위한 중접 for문으로, 외부 For는 과목 수 `STUDENTS`만큼, 내부For문은 학생 수 `SUBJECTS`만큼 돌며 다음과 같은 순서대로 입력된다.
 
 내부For \ 외부For|과목0|과목1|과목2|과목3
 --|--|--|--|--
@@ -155,7 +155,7 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 	return cumSum;
 }
 ```
-8. `score_input`
+###`score_input`
 
 7번 함수에서 입력받은 학급별 성적배열을 input하여 각 학급별 총점과 평균을 계산하여 출력한다. 먼저 전체학급의 과목별 성적을 누적하는 배열은 case내에서 이 함수를 끝내더라도 다른 학급의 성적을 계산할 때에도 값이 유지 및 누적되어야 하기 때문에 static으로 선언하여 준다. 그 다음 학급별 총점을 누적 대입받기 위해 `total` 변수를 `for`문 밖에 선언과 동시에 0으로 초기화하였다. 
 
@@ -188,7 +188,7 @@ void print_total_avg(double* b, int a)               // 과목별 전체학급 �
 }
 ```
 
-9. `print_total_avg`
+###`print_total_avg`
 
 앞서 반환하여 포인터 변수에 대입한 배열을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
 
