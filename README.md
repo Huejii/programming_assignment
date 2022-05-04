@@ -21,7 +21,7 @@
 /******************* 함수 원형 *******************/
 void score_input(double a[STUDENTS][SUBJECTS]);        // 정의: 7. 성적 입력 함수
 double* print_sum_avg(double a[STUDENTS][SUBJECTS]);   // 정의: 8. 성적 산출 및 출력 함수
-void print_total_avg(double* b, int a);                // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
+void print_total_avg(double* b, int a);   // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
 ```
 
 기호상수와 함수는 위와 같이 선언하였다. 기호상수 `SUTDENTS`는 학급별로 학생 수가 3, `SUBJECTS`는 과목 수가 4인 것을 의미한다. 
@@ -176,13 +176,13 @@ cumSum|과목0|과목1|과목2|과목4
 
 ```c
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
-void print_total_avg(double* b, int a)               // 과목별 전체학급 성적 배열, 학급수
+void print_total_avg(double* b, int a)            // 과목별 전체학급 성적 배열, 학급수
 {
-	double avg;                              // <과목별 전체 평균 변수>
+	double avg;                               // <과목별 전체 평균 변수>
 	printf("\n\n===== << 전체 학급의 과목별 평균 >> =====\n\n");
 	for (int j = 0; j < SUBJECTS; j++)
 	{
-		avg = *(b + j) / (a * STUDENTS);   // 과목별 전체학생의 평균 점수 = (전체학급의 과목별 점수)/(학급수X학생수)
+		avg = *(b + j) / (a * STUDENTS);  // (전체학급의 과목별 점수)/(학급수X학생수)
 		printf("       과목 % d의 총 평균 : % .2f\n", j, avg);
 	}
 }
