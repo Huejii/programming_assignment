@@ -148,7 +148,7 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 		{
 			sum += a[i][j];      // 과목별 학급 내 성적 누적
 		}
-		cumSum[j] += sum;        // 과목별 전체학급의 성적 누적
+		cumSum[j] += sum;        // 과목별 전체학급 성적 누적
 		total += sum;            //  학급 내 성적 누적
 	}
 	printf("\n▶ 총점은 %f, 평균은 %.2f입니다.\n\n", total, total / (STUDENTS * SUBJECTS));
@@ -178,11 +178,11 @@ cumSum|과목0|과목1|과목2|과목4
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
 void print_total_avg(double* b, int a)               // 과목별 전체학급 성적 배열, 학급수
 {
-	double avg;                              // 과목별 총점으로 평균을 계산하여 넣을 <과목별 전체 평균 변수> 선언
+	double avg;                              // <과목별 전체 평균 변수>
 	printf("\n\n===== << 전체 학급의 과목별 평균 >> =====\n\n");
 	for (int j = 0; j < SUBJECTS; j++)
 	{
-		avg = *(b + j/8) / (a * STUDENTS);   // 과목별 전체학생의 평균 점수 = (전체학급의 과목별 점수)/(학급수X학생수)
+		avg = *(b + j) / (a * STUDENTS);   // 과목별 전체학생의 평균 점수 = (전체학급의 과목별 점수)/(학급수X학생수)
 		printf("       과목 % d의 총 평균 : % .2f\n", j, avg);
 	}
 }
@@ -195,5 +195,5 @@ void print_total_avg(double* b, int a)               // 과목별 전체학급 �
 ④ 함수 실행
 ---
 
-<img src="https://user-images.githubusercontent.com/94972402/166245971-f1b837a5-58f2-4330-bbdd-13a8fe4cde2a.png" width="800">
-<img src="https://user-images.githubusercontent.com/94972402/166245742-4e5894a8-5394-4574-95bd-8c2bd2147f4c.png" width="800">
+<img src="https://user-images.githubusercontent.com/94972402/166709444-dcf4a5f4-eec7-4970-8f4f-ad612a72abe4.png" width="800">
+<img src="https://user-images.githubusercontent.com/94972402/166709454-1a5c2953-2828-4cd4-9d7b-ea16c4abfbfa.png" width="800">
