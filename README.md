@@ -19,9 +19,9 @@
 #define SUBJECTS 4   // 과목 수
 
 /******************* 함수 원형 *******************/
-void score_input(double a[STUDENTS][SUBJECTS]);        // 정의: 7. 성적 입력 함수
-double* print_sum_avg(double a[STUDENTS][SUBJECTS]);   // 정의: 8. 성적 산출 및 출력 함수
-void print_total_avg(double* b, int a);   // 정의: 9. 전체 학급 과목별 평균 산출 및 출력 함수
+void score_input(double score[STUDENTS][SUBJECTS]);       // 정의: 7. 성적 입력 함수
+double* print_sum_avg(double score[STUDENTS][SUBJECTS]);  // 정의: 8. 성적 산출 및 출력 함수
+void print_cumsum_to_avg(double* cumSum, int numOfClasses);  // 정의: 9. 전체 학생 과목별 평균 산출 및 출력 함수
 ```
 
 기호상수와 함수는 위와 같이 선언하였다. 기호상수 `SUTDENTS`는 학급별로 학생 수가 3, `SUBJECTS`는 과목 수가 4인 것을 의미한다. 
@@ -32,7 +32,7 @@ void print_total_avg(double* b, int a);   // 정의: 9. 전체 학급 과목별 
 
 8. `print_sum_avg` : 7번 함수에서 입력받은 성적 배열을 토대로 학급의 총점과 평균을 계산하여 출력한다. 함수 내에 전체 학급의 과목별 성적을 합산하는 **static** 유형의 1차원 배열인 `cumSum`을 선언하여 누적하고, 이 배열의 주소를 반환값으로 한다. 
 
-9. `print_total_avg` : 8번함수에서 반환된 배열 주소값을 토대로 전체 학급의 과목별 평균을 산출하고 출력한다.
+9. `print_cumsum_to_avg` : 8번함수에서 반환된 배열을 토대로 전체 학급의 과목별 평균을 산출하고 출력한다.
 
 
 ```c
@@ -96,7 +96,7 @@ break를 걸지 않음에 따라, `case 3`의 경우를 예로 들 때 `case 3`�
 
 ```c
 	// 전체 학급의 과목별 평균 출력
-	print_total_avg(totalScore, classes); // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
+	print_cumsum_to_avg(totalScore, classes); // < 9. 전체 학급 과목별 평균 출력 함수 > 호출, input: 과목별 총점 배열 포인터, 학급 수
 
 	return 0;
 }
@@ -111,7 +111,7 @@ switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 �
 ```c
 /******************* 함수 정의 *******************/
 // 7. 성적 입력 함수 정의 : 학생X과목별 키보드 입력 
-void score_input(double a[STUDENTS][SUBJECTS])  // 학급별 성적 배열
+void score_input(double scores[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 {
 	;
 	for (int i = 0; i < STUDENTS; i++)  // for문을 이용하여 키보드로 배열값 입력
@@ -146,9 +146,9 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 		double sum = 0;          // 과목별로 학생성적을 누적하기 위해 큰 for문 돌 때마다 초기화
 		for (int i = 0; i < STUDENTS; i++)
 		{
-			sum += a[i][j];      // 과목별 학급 내 성적 누적
+			sum += a[i][j];  // 과목별 학급 내 성적 누적
 		}
-		cumSum[j] += sum;        // 과목별 전체학급 성적 누적
+		cumSum[j] += sum;        // 과목별 전체학생 성적 누적
 		total += sum;            //  학급 내 성적 누적
 	}
 	printf("\n▶ 총점은 %f, 평균은 %.2f입니다.\n\n", total, total / (STUDENTS * SUBJECTS));
@@ -157,7 +157,7 @@ double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 
 ```
 `print_sum_avg`:
 
-7번 함수에서 입력받은 학급별 성적배열을 input하여 각 학급별 총점과 평균을 계산하여 출력한다. 먼저 전체학급의 과목별 성적을 누적하는 배열은 case내에서 이 함수를 끝내더라도 다른 학급의 성적을 계산할 때에도 값이 유지 및 누적되어야 하기 때문에 static으로 선언하여 준다. 그 다음 학급별 총점을 누적 대입받기 위해 `total` 변수를 `for`문 밖에 선언과 동시에 0으로 초기화하였다. 
+학급별 성적배열을 input하여 각 학급별 총점과 평균을 계산하여 출력한다. 먼저 전체학급의 과목별 성적을 누적하는 배열은 case내에서 이 함수를 끝내더라도 다른 학급의 성적을 계산할 때에도 값이 유지 및 누적되어야 하기 때문에 static으로 선언하여 준다. 그 다음 학급별 총점을 누적 대입받기 위해 `total` 변수를 `for`문 밖에 선언과 동시에 0으로 초기화하였다. 
 
 
 이번에도 중첩 `for`문이 사용되었다. 외부 for문은 과목 수 `SUBJECTS`만큼, 내부 for문은 학생 수 `STUDENTS`만큼 돌며 sum에 그 값을 누적한다. `sum`은 내부 for문 밖에서 초기화 되는데, 이는 과목별로 성적을 저장하기 위함이다. 내부 for문을 거치고 나온`sum`은 과목별로 누적된 성적을 `j`값에 따른 과목 점수를 `cumSum` 열에 누적한다. 또한 `total` 변수에도 성적을 누적하는데 이때의 성적은 과목의 구분없이 모든 점수를 누적하여 최종적으로 학급의 총점을 대입받는다.
@@ -176,13 +176,13 @@ cumSum|과목0|과목1|과목2|과목4
 
 ```c
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
-void print_total_avg(double* b, int a)            // 과목별 전체학급 성적 배열, 학급수
+void print_cumsum_to_avg(double* cumSum, int numOfClasses) // 전체학생의 과목별 성적 누적 배열, 학급수
 {
-	double avg;                               // <과목별 전체 평균 변수>
+	double avg;   // 평균을 계산하여 대입할 <과목별 전체 평균 변수> 선언
 	printf("\n\n===== << 전체 학급의 과목별 평균 >> =====\n\n");
 	for (int j = 0; j < SUBJECTS; j++)
 	{
-		avg = *(b + j) / (a * STUDENTS);  // (전체학급의 과목별 점수)/(학급수X학생수)
+		avg = *(cumSum + j) / (numOfClasses * STUDENTS);  // (전체학생의 과목별 성적 누적)/( 학급수 X 학급당 학생수)
 		printf("       과목 % d의 총 평균 : % .2f\n", j, avg);
 	}
 }
@@ -190,7 +190,7 @@ void print_total_avg(double* b, int a)            // 과목별 전체학급 성�
 
 `print_total_avg`:
 
-앞서 반환하여 포인터 변수에 대입한 배열을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
+앞서 반환한 전체학생의 과목별 성적 누적 배열을 가리키는 포인터 변수을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
 
 ④ 함수 실행
 ---
