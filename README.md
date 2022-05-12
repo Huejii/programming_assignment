@@ -5,8 +5,7 @@
 
 ① 알고리즘 정의
 ---
-
-<img src="https://user-images.githubusercontent.com/94972402/166223016-ef15e372-4b97-4ad0-8d37-1856534e3be2.png" width="600">
+<img src="https://user-images.githubusercontent.com/94972402/167969564-4fdb7d61-bcef-4c16-9821-ed723c37bd15.png" width="600">
 
 ② 코드
 ---
@@ -188,9 +187,9 @@ void print_cumsum_to_avg(double* cumSum, int numOfClasses) // 전체학생의 �
 }
 ```
 
-`print_total_avg`:
+`print_cumsum_to_avg`:
 
-앞서 반환한 전체학생의 과목별 성적 누적 배열을 가리키는 포인터 변수을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
+`print_sum_avg`에서 반환한 전체학생의 과목별 성적 누적 배열을 가리키는 포인터 변수을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
 
 ④ 함수 실행
 ---
