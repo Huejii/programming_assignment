@@ -84,7 +84,7 @@ int main(void)
 	case 1: //0반
 		printf("\n\n----< 0반 성적 입력 >---- \n\n");
 		score_input(class0);
-		totalScore = print_sum_avg(class0);  // 누적된 전체학급의 과목별 총점 배열을 리턴하여 포인터변수에 대입
+		totalScore = print_sum_avg(class0);  // 누적된 전체학생의 과목별 총점 배열을 리턴하여 포인터변수에 대입
 	}
 ```
 입력받은 학급 수인 `classes`에 따라 `switch`문의 case를 나누었다. `case n`은 'class(n-1)'의 성적 입력과 총점&평균 성적을 출력할 함수를 호출한다.
@@ -110,10 +110,10 @@ switch문이 끝나고, <9. 전체학급의 과목별 평균 출력 함수>를 �
 ```c
 /******************* 함수 정의 *******************/
 // 7. 성적 입력 함수 정의 : 학생X과목별 키보드 입력 
-void score_input(double scores[STUDENTS][SUBJECTS])  // 학급별 성적 배열
+void score_input(double scores[STUDENTS][SUBJECTS])  // parameter: 학급별 성적 배열
 {
 	;
-	for (int i = 0; i < STUDENTS; i++)  // for문을 이용하여 키보드로 배열값 입력
+	for (int i = 0; i < STUDENTS; i++)  // for문을 이용하여 배열값에 키보드로 성적 입력받기
 	{
 		printf("\n- 학생%d의 성적 입력\n\n", i);
 		for (int j = 0; j < SUBJECTS; j++)
@@ -135,23 +135,23 @@ void score_input(double scores[STUDENTS][SUBJECTS])  // 학급별 성적 배열
 학생2|③|⑥|⑨|⑫
 
 ```c
-// 8. 성적 산출 및 출력 함수 정의: 학급별 총점 & 평균 출력
-double *print_sum_avg(double a[STUDENTS][SUBJECTS]) // 학급별 성적 배열, 과목별 전체학급 성적 배열
+// 8. 성적 산출 함수 정의: 학급별 총점 & 평균 출력 / return: 과목별 전체학생의 누적 총점 배열
+double *print_sum_avg(double scores[STUDENTS][SUBJECTS]) // parameter: 학급별 성적 배열
 {
-	static double cumSum[SUBJECTS] = { 0.0 }; // 저장 유형 지정자 static > 전체 학급의 과목별 성적 누적
-	double total = 0;            // 학급별 총점 변수
+	static double cumSum[SUBJECTS] = { 0.0 };       // 저장 유형 지정자 static > 전체 학급의 과목별 성적 누적
+	double total = 0;                               // 학급별 총점 변수
 	for (int j = 0; j < SUBJECTS; j++)
 	{
-		double sum = 0;          // 과목별로 학생성적을 누적하기 위해 큰 for문 돌 때마다 초기화
+		double sum = 0;                             // 과목별로 학생성적을 누적하기 위해 큰 for문 돌 때마다 초기화
 		for (int i = 0; i < STUDENTS; i++)
 		{
-			sum += a[i][j];  // 과목별 학급 내 성적 누적
+			sum += scores[i][j];                    // 과목별 학급 내 성적 누적
 		}
-		cumSum[j] += sum;        // 과목별 전체학생 성적 누적
-		total += sum;            //  학급 내 성적 누적
+		cumSum[j] += sum;                           // 과목별 전체학생의 성적 누적
+		total += sum;                               //  학급 내 성적 누적
 	}
-	printf("\n▶ 총점은 %f, 평균은 %.2f입니다.\n\n", total, total / (STUDENTS * SUBJECTS));
-	return cumSum;
+	printf("\n▶ 총점은 %f, 평균은 %.2f입니다.\n\n", total, total / (STUDENTS * SUBJECTS));  // 총점과 평균 출력 (평균은 소수 둘째자리까지 출력)
+	return cumSum; // 과목별 전체학생 누적 총점 배열 반환
 }
 ```
 `print_sum_avg`:
@@ -175,13 +175,13 @@ cumSum|과목0|과목1|과목2|과목4
 
 ```c
 // 9. 전체 학급의 과목별 평균 출력 함수 정의
-void print_cumsum_to_avg(double* cumSum, int numOfClasses) // 전체학생의 과목별 성적 누적 배열, 학급수
+void print_cumsum_to_avg(double* cumSum, int numOfClasses)   // parameter: 과목별 전체학급 성적 배열, 학급수
 {
-	double avg;   // 평균을 계산하여 대입할 <과목별 전체 평균 변수> 선언
+	double avg;                                    // 과목별 총점으로 평균을 계산하여 넣을 <과목별 전체 평균 변수> 선언
 	printf("\n\n===== << 전체 학급의 과목별 평균 >> =====\n\n");
 	for (int j = 0; j < SUBJECTS; j++)
 	{
-		avg = *(cumSum + j) / (numOfClasses * STUDENTS);  // (전체학생의 과목별 성적 누적)/( 학급수 X 학급당 학생수)
+		avg = *(cumSum + j) / (numOfClasses * STUDENTS);     // 과목별 전체학생의 평균 점수 = (전체학급의 과목별 점수)/(학급수X학생수)
 		printf("       과목 % d의 총 평균 : % .2f\n", j, avg);
 	}
 }
