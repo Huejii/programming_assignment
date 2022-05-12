@@ -191,7 +191,7 @@ void print_cumsum_to_avg(double* cumSum, int numOfClasses)   // parameter: 과�
 
 `print_sum_avg`에서 반환한 전체학생의 과목별 성적 누적 배열을 가리키는 포인터 변수을 input하여 전체 학급의 과목별 총평균을 산출하여 출력한다. 이 때 학급수도 input하여야 하는데, 이는 평균을 구하기 위해 학생수와 함께 전체학급의 과목별 총점들을 나누어주기 위함이다. `avg`변수는 `for`문 내에서 전체학생의 과목별 총평균을 계산하여 대입할 변수이다.
 
-④ 함수 실행
+④ 코드 실행
 ---
 
 <img src="https://user-images.githubusercontent.com/94972402/166709444-dcf4a5f4-eec7-4970-8f4f-ad612a72abe4.png" width="800">
